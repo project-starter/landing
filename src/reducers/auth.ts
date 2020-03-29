@@ -7,11 +7,11 @@ import {
   LOGOUT_FAILURE,
   VERIFY_REQUEST,
   VERIFY_SUCCESS,
-  ReduxAction
+  ReduxAction,
+  AppState
 } from '../actions';
-import { verify } from 'crypto';
 
-let appState = {
+export const appState: AppState = {
   isLoggingIn: false,
   isLoggingOut: false,
   isVerifying: false,
@@ -20,7 +20,7 @@ let appState = {
   isAuthenticated: false
 };
 
-export default (state: any = appState, action: ReduxAction) => {
+export default (state: AppState = { ...appState }, action: ReduxAction) => {
   switch (action.type) {
     case LOGIN_REQUEST:
       return {

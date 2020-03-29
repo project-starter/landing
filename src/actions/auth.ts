@@ -5,6 +5,26 @@ export interface ReduxAction {
   [key: string]: any;
 }
 
+export interface AppState {
+  isLoggingIn?: boolean;
+  isLoggingOut?: boolean;
+  isVerifying?: boolean;
+  loginError?: boolean;
+  logoutError?: boolean;
+  isAuthenticated?: boolean;
+}
+
+export interface AppProps extends AppState {
+  auth?: AppState;
+  dispatch?: Function;
+  [key: string]: any;
+}
+
+export interface LoginState {
+  email: string;
+  password: string;
+}
+
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
@@ -36,7 +56,7 @@ const logoutError = (e: any): ReduxAction => {
   return { type: LOGOUT_FAILURE, e };
 };
 
-const verifyRequest = (): ReduxAction => {
+export const verifyRequest = (): ReduxAction => {
   return {
     type: VERIFY_REQUEST
   };
@@ -50,6 +70,7 @@ const verifySuccess = (): ReduxAction => {
 export const loginUser = (email: string, password: string) => (
   dispatch: Function
 ) => {
+  
   dispatch(requestLogin());
   firebaseApp
     .auth()
@@ -59,6 +80,7 @@ export const loginUser = (email: string, password: string) => (
 };
 
 export const logoutUser = () => (dispatch: Function) => {
+  console.log('loggin out')
   dispatch(requestLogout());
   firebaseApp
     .auth()
@@ -73,4 +95,5 @@ export const verifyAuth = () => (dispatch: Function) => {
     if (user) dispatch(receiveLogin(user));
     dispatch(verifySuccess());
   });
+  return verifyRequest();
 };

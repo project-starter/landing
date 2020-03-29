@@ -1,10 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Root from './Root';
 
-const App = () => {
-  return (
-    <h1>Hello, Landing!</h1>
-  )
-}
-
-ReactDOM.render(<App />, document.querySelector('#root'));
+ReactDOM.render(<Root />, document.querySelector('#root'));
