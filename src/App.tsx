@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -7,13 +7,11 @@ import Home from './components/Home';
 import Login from './components/Login';
 import { AppProps } from './actions';
 
-class App extends React.Component<AppProps, {isAuthenticated: boolean | undefined}> {
-  state = {isAuthenticated: this.props.isAuthenticated};
-  render() {
-    const { isAuthenticated, isVerifying } = this.props;
+const App: FC = (props: AppProps) => {
+  const { isAuthenticated, isVerifying } = props;
 
-    return (
-      <Switch>
+  return (
+    <Switch>
       <ProtectedRoute
         exact
         path='/'
@@ -23,10 +21,8 @@ class App extends React.Component<AppProps, {isAuthenticated: boolean | undefine
       />
       <Route path='/login' component={Login} />
     </Switch>
-    )
-  }
-}
-
+  );
+};
 
 const mapStateToProps = (state: AppProps) => {
   return {

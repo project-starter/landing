@@ -70,7 +70,6 @@ const verifySuccess = (): ReduxAction => {
 export const loginUser = (email: string, password: string) => (
   dispatch: Function
 ) => {
-  
   dispatch(requestLogin());
   firebaseApp
     .auth()
@@ -80,12 +79,11 @@ export const loginUser = (email: string, password: string) => (
 };
 
 export const logoutUser = () => (dispatch: Function) => {
-  console.log('loggin out')
   dispatch(requestLogout());
   firebaseApp
     .auth()
     .signOut()
-    .then(() => dispatch(receiveLogout))
+    .then(() => setTimeout(() => dispatch(receiveLogout()), 1000))
     .catch(e => dispatch(logoutError(e)));
 };
 
